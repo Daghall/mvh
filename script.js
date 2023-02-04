@@ -119,6 +119,18 @@ const WORDS = [
         }
       }, 50);
     });
+    if (location.hash === "#voices") {
+      const debug = document.createElement("pre");
+      debug.style.textAlign = "left";
+      debug.innerText = JSON.stringify(
+        voices.map((v) => {
+          return {
+            name: v.name,
+            lang: v.lang,
+          };
+        }), null, 2);
+      document.body.appendChild(debug);
+    }
     return voices
       .find((item) => {
         return item.lang === desiredLanguge;
