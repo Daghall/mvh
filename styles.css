@@ -1,0 +1,66 @@
+body {
+  padding-top: 10vh;
+  margin: 0 auto;
+  width: 75%;
+  height: 100vh;
+  box-sizing: border-box;
+  text-align: center;
+  background-color: whitesmoke;
+}
+
+input, button {
+  width: 5vh;
+  height: 5vh;
+  margin: 0;
+  font-size: 24px;
+  background-color: wheat;
+  border: 1px solid goldenrod;
+  border-radius: 5px;
+}
+
+hr {
+  width: 0;
+}
+
+#word {
+  font-size: 64px;
+  margin: 20px;
+  color: saddlebrown;
+}
+
+#next {
+  width: initial;
+}
+
+#feedback {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+#progress {
+  margin-top: 30px;
+}
+
+#feedback::before,
+#progress > span::before {
+  content: "?";
+}
+
+#progress > span {
+  display: inline-block;
+  width: 15px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+#feedback.correct::before,
+#progress > span.correct::before {
+  content: "✔";
+  color: lime;
+}
+
+#feedback.wrong::before,
+#progress > span.wrong::before {
+  content: "✘";
+  color: red;
+}
