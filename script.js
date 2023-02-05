@@ -133,7 +133,9 @@ const WORDS = [
     }
     return voices
       .find((item) => {
-        return item.lang === desiredLanguge;
+        // Sometimes, the language and country code is
+        // separated with underscore, and sometimes with a hyphen...
+        return item.lang.replace("_", "-") === desiredLanguge;
       });
   }
 
