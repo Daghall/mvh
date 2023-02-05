@@ -150,8 +150,7 @@ const WORDS = [
     list.shift();
     if (list.length === 0) {
       resetProgress();
-      // TODO: shuffle?
-      list.push(...WORDS
+      list.push(...shuffle(WORDS)
         .map((word) => {
           if (Math.random() < 0.5) {
             return toggleWord(word);
@@ -185,6 +184,19 @@ function resetProgress() {
     answer.removeAttribute("class");
     answer.removeAttribute("title");
   });
+}
+
+function shuffle(array) {
+  const arrayCopy = array.slice();
+  const shuffledArray = [];
+
+  while (shuffledArray.length < array.length) {
+    const randomIndex = Math.random() * arrayCopy.length;
+    const [ randomItem ] = arrayCopy.splice(randomIndex, 1);
+    shuffledArray.push(randomItem);
+  }
+
+  return shuffledArray;
 }
 
 function toggleWord(word) {
