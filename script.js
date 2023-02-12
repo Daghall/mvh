@@ -107,7 +107,7 @@ const WORDS = [
     });
 
   // The speech synthesis is loaded asynchronously,
-  // so we need to poll it in order to get the desired voice
+  // so we need to poll it in order to populate the list
   async function getVoice() {
     const desiredLanguge = "sv-SE";
     const voices = await new Promise((resolve) => {
@@ -119,6 +119,7 @@ const WORDS = [
         }
       }, 50);
     });
+
     if (location.hash === "#voices") {
       const debug = document.createElement("pre");
       debug.style.textAlign = "left";
@@ -131,6 +132,7 @@ const WORDS = [
         }), null, 2);
       document.body.appendChild(debug);
     }
+
     return voices
       .find((item) => {
         // Sometimes, the language and country code is
@@ -142,7 +144,8 @@ const WORDS = [
   function speak(word) {
     if (window.speechSynthesis.speaking) return;
 
-    const utterance = new SpeechSynthesisUtterance(word);
+    // Use lower-case to avoid making the TTS thinking the word is an abbreviation
+    const utterance = new SpeechSynthesisUtterance(word.toLowerCase());
     utterance.voice = voice;
     utterance.rate = 0.75;
     window.speechSynthesis.speak(utterance);
@@ -171,7 +174,6 @@ const WORDS = [
     wordContainer.innerText = list[0];
     wordContainer.style.fontFamily = Math.random() < 0.5 ? "serif" : "sans-serif";
   }
-
 })();
 
 function setProgress(className, word) {
