@@ -50,6 +50,7 @@ const WORDS = [
   const voice = await getVoice();
   const wordContainer = document.getElementById("word");
   const answerButtons = Array.from(document.querySelectorAll("input[type=radio]"));
+  const letterButtons = Array.from(document.querySelectorAll("button[data-letter]"));
   const feedback = document.getElementById("feedback");
   const progress = document.getElementById("progress");
   const list = [];
@@ -60,14 +61,15 @@ const WORDS = [
     progress.appendChild(answer);
   });
 
-  const a = document.getElementById("a");
-  a.addEventListener("click", async () => {
-    speak(unToggleWord(list[0]));
-  });
+  letterButtons.forEach((button) => {
+    button.addEventListener("click", async () => {
+      if (button.dataset.letter === "a") {
+        speak(unToggleWord(list[0]));
+      } else {
 
-  const b = document.getElementById("b");
-  b.addEventListener("click", async () => {
-    speak(toggleWord(list[0]));
+        speak(toggleWord(list[0]));
+      }
+    });
   });
 
   const next = document.getElementById("next");
@@ -154,7 +156,9 @@ const WORDS = [
   }
 
   function nextWord() {
+    shuffleAnswers();
     list.shift();
+
     if (list.length === 0) {
       resetProgress();
       list.push(...shuffle(WORDS)
@@ -175,6 +179,20 @@ const WORDS = [
 
     wordContainer.innerText = list[0];
     wordContainer.style.fontFamily = Math.random() < 0.5 ? "serif" : "sans-serif";
+  }
+
+  function shuffleAnswers() {
+    if (Math.random() < 0.5) {
+      letterButtons[0].dataset.letter = "a";
+      letterButtons[1].dataset.letter = "ä";
+      answerButtons[0].value = "a";
+      answerButtons[1].value = "ä";
+    } else {
+      letterButtons[0].dataset.letter = "ä";
+      letterButtons[1].dataset.letter = "a";
+      answerButtons[0].value = "ä";
+      answerButtons[1].value = "a";
+    }
   }
 })();
 
